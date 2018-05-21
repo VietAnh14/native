@@ -33,15 +33,41 @@
 using namespace Java::Lang;
 
 std::wstring multiByteStringToWideString(const std::string &input) {
-    setlocale(LC_CTYPE, "");
+	if (input.empty()) {
+		return std::wstring();
+	}
+#ifdef _WIN32
+	const int sizeNeed = MultiByteToWideChar(CP_UTF8, 0, input.c_str(), input.size(), NULL, 0);
+    std::wstring result(sizeNeed, 0);
+    if (MultiByteToWideChar(CP_UTF8, 0, input.c_str(), input.size(), &result[0], sizeNeed) <= 0) {
+        return std::wstring();
+    }
+    return result;
+#else
+	setlocale(LC_CTYPE, "");
 	std::wstring_convert<std::codecvt_utf8<wchar_t> > convertToWstring;
 	return convertToWstring.from_bytes(input.c_str());
+#endif
+	return std::wstring();
 }
 
 std::string wideStringToMultiByteString(const std::wstring &input) {
-    setlocale(LC_CTYPE, "");
+	if (input.empty()) {
+		return std::string();
+	}
+#ifdef _WIN32
+	int sizeNeed = WideCharToMultiByte(CP_UTF8, 0, &input[0], input.size(), NULL, 0, NULL, NULL);
+	std::string result(sizeNeed, 0);
+	if (WideCharToMultiByte(CP_UTF8, 0, &input[0], input.size(), &result[0], sizeNeed, NULL, NULL) <= 0) {
+		return std::string();
+	}
+	return result;
+#else
+	setlocale(LC_CTYPE, "");
 	std::wstring_convert<std::codecvt_utf8<wchar_t> > convertToString;
 	return convertToString.to_bytes(input.c_str());
+#endif
+	return std::string();
 }
 
 std::string toUpper(const std::string &input) {

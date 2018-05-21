@@ -49,6 +49,7 @@
 #include <ctime>
 #include <regex.h>
 #include <stddef.h>
+
 #ifdef LINUX
 #include <stdint.h>
 #endif
@@ -86,6 +87,11 @@
 #include <initializer_list>
 #include <functional>
 #include <codecvt>
+
+
+#ifdef _WIN32
+#include <Windows.h>
+#endif
 
 /**
  * Allocate new memory with specific size
