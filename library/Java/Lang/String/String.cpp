@@ -71,12 +71,14 @@ std::string wideStringToMultiByteString(const std::wstring &input) {
 }
 
 std::string toUpper(const std::string &input) {
+    System::out::print(String::format("\n[DEBUG]Locale is: %s\n", setlocale(LC_CTYPE, "")));
 	std::wstring wideString = multiByteStringToWideString(input);
     std::transform(wideString.begin(), wideString.end(), wideString.begin(), towupper);
 	return wideStringToMultiByteString(wideString);
 }
 
 std::string toLower(const std::string &input) {
+	System::out::print(String::format("\n[DEBUG]Locale is: %s\n", setlocale(LC_CTYPE, "")));
     std::wstring wideString = multiByteStringToWideString(input);
     std::transform(wideString.begin(), wideString.end(), wideString.begin(), towlower);
     return wideStringToMultiByteString(wideString);
