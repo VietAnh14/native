@@ -36,7 +36,7 @@ std::wstring multiByteStringToWideString(const std::string &input) {
 	if (input.empty()) {
 		return std::wstring();
 	}
-#ifdef _WIN32
+#ifdef WIN
 	const int sizeNeed = MultiByteToWideChar(CP_UTF8, 0, input.c_str(), input.size(), NULL, 0);
     std::wstring result(sizeNeed, 0);
     if (MultiByteToWideChar(CP_UTF8, 0, input.c_str(), input.size(), &result[0], sizeNeed) <= 0) {
@@ -55,7 +55,7 @@ std::string wideStringToMultiByteString(const std::wstring &input) {
 	if (input.empty()) {
 		return std::string();
 	}
-#ifdef _WIN32
+#ifdef WIN
 	int sizeNeed = WideCharToMultiByte(CP_UTF8, 0, &input[0], input.size(), NULL, 0, NULL, NULL);
 	std::string result(sizeNeed, 0);
 	if (WideCharToMultiByte(CP_UTF8, 0, &input[0], input.size(), &result[0], sizeNeed, NULL, NULL) <= 0) {

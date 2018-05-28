@@ -89,7 +89,7 @@
 #include <codecvt>
 
 
-#ifdef _WIN32
+#ifdef WIN
 #include <Windows.h>
 #endif
 
