@@ -148,12 +148,12 @@ TEST (JavaLangString, Destructor) {
     delete textPointer;
 }
 TEST (JavaLangString, getSize) {
-    //Given a String - Return size of the String
+    // Given a String - Return size of the String
     String text = "Hello World";
     int sizeOfText = text.getSize();
     assertEquals(11, sizeOfText);
 
-    //Given a null String
+    // Given a null String
     String nullText =  "";
     assertEquals(0, nullText.getSize());
 
@@ -619,14 +619,15 @@ TEST (JavaLangString, GetChars) {
 
     testString.getChars(10, 16, charArray, 6);
     Array<char> subCharArray1= {'S','t','r','i','n','g','S','t','r','i','n','g'};
-
-    for (int index=0; index<Math::min(subCharArray1.length, charArray.length); index++) {
+    int length = Math::min(subCharArray1.length, charArray.length);
+    for (int index = 0; index < length; index++) {
         assertTrue((int) subCharArray1[index] == (int) charArray[index]);
     }
 
     testString.getChars(10, 16, charArray, 3);
     Array<char> subCharArray2 = {'S','t','r','S','t','r','i','n','g', 'i','n','g'};
-    for (int index=0; index<Math::min(subCharArray2.length, charArray.length); index++) {
+    int length1 = Math::min(subCharArray2.length, charArray.length);
+    for (int index = 0; index < length1; index++) {
         assertTrue((int) subCharArray2[index] == (int) charArray[index]);
     }
 }
@@ -862,8 +863,8 @@ TEST (JavaLangString, StartsWith) {
     assertFalse(textPlus.startsWith(String("ello")));
 }
 
-TEST(JavaLangString, toCharArray){
-    //Given a string - Return an array of char
+TEST(JavaLangString, toCharArray) {
+    // Given a string - Return an array of char
     String text = "Hello World";
     String textResult = "";
     int index;
@@ -873,14 +874,14 @@ TEST(JavaLangString, toCharArray){
     }
     assertEquals("Hello World", textResult);
 
-    //Given a null String
+    // Given a null String
     String nullText = "";
     textResult = "";
     Array<char> arrayNull = nullText.toCharArray();
     assertEquals("", arrayNull);
 }
 
-TEST(JavaLangString, toCharPointer){
+TEST(JavaLangString, toCharPointer) {
     String text = "Hello World";
     int index;
     char* ptrToText = text.toCharPointer();
